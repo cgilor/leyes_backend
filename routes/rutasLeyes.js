@@ -24,17 +24,19 @@ router.post('/',
 crearLeyes
 );
 
-router.put('/', 
+router.put('/:id', 
 [
-    
+    validarToken,
+    check('nombre','El nombre del hospital es necesario').not().isEmpty(),
+    validarCampos
 
 ], 
 actualizarLeyes
 );
 
 
-router.delete('/',
-    
+router.delete('/:id',
+    validarToken,
     borrarLeyes
 );
 

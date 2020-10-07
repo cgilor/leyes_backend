@@ -25,7 +25,10 @@ crearArt
 
 router.put('/:id', 
 [
-    
+    validarToken,
+    check('nombre','El nombre del articulo es necesario').not().isEmpty(),
+    check('leyes','la id debe de ser válido').isMongoId(),
+    validarCampos
 
 ], 
 actualizarArt
@@ -33,7 +36,7 @@ actualizarArt
 
 
 router.delete('/:id',
-    
+    validarToken,
 borrarArt
 );
 

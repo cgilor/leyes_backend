@@ -40,17 +40,79 @@ try {
 }
 
 }
-const actualizarArt = (req, res = response) => {
-    res.json({
-        ok: true,
-        msg: 'actualizarArt'
-    })
+const actualizarArt = async(req, res = response) => {
+    const id  = req.params.id;
+    const uid = req.uid;
+
+    try {
+        
+        const articulo = await Articulo.findById( id );
+
+        if ( !articulo ) {
+            return res.status(404).json({
+                ok: true,
+                msg: 'articulo no encontrado por id',
+            });
+        }
+
+        const cambiosArticulo = {
+            ...req.body,
+            usuario: uid
+        }
+
+        const articuloActualizado = await Leyes.findOneAndUpdate( id, cambiosArticulo, { new: true } );
+
+
+        res.json({
+            ok: true,
+            articulo: cambiosArticulo
+        })
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        })
+    }
 }
-const borrarArt = (req, res = response) => {
-    res.json({
-        ok: true,
-        msg: 'borrarArt'
-    })
+const borrarArt = async(req, res = response) => {
+    const id  = req.params.id;
+    
+
+    try {
+        
+        const articulo = await Articulo.findById( id );
+
+        if ( !articulo ) {
+            return res.status(404).json({
+                ok: true,
+                msg: 'articulo no encontrado por id',
+            });
+        }
+
+       
+
+        await Articulo.findByIdAndDelete(id);
+
+
+        res.json({
+            ok: true,
+            
+            msg: 'articulo borrada'
+        })
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        })
+    }
 }
 
 module.exports = {

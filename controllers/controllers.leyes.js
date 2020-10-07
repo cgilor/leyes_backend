@@ -40,17 +40,80 @@ try {
 
     
 }
-const actualizarLeyes = (req, res = response) => {
-    res.json({
-        ok: true,
-        msg: 'actualizarLeyes'
-    })
+const actualizarLeyes = async(req, res = response) => {
+    const id  = req.params.id;
+    const uid = req.uid;
+
+    try {
+        
+        const leyes = await Leyes.findById( id );
+
+        if ( !leyes ) {
+            return res.status(404).json({
+                ok: true,
+                msg: 'leyes no encontrado por id',
+            });
+        }
+
+        const cambiosLeyes = {
+            ...req.body,
+            usuario: uid
+        }
+
+        const leyesActualizado = await Leyes.findOneAndUpdate( id, cambiosLeyes, { new: true } );
+
+
+        res.json({
+            ok: true,
+            leyes: leyesActualizado
+        })
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        })
+    }
+
 }
-const borrarLeyes = (req, res = response) => {
-    res.json({
-        ok: true,
-        msg: 'borrarLeyes'
-    })
+const borrarLeyes = async(req, res = response) => {
+    const id  = req.params.id;
+    
+
+    try {
+        
+        const leyes = await Leyes.findById( id );
+
+        if ( !leyes ) {
+            return res.status(404).json({
+                ok: true,
+                msg: 'leyes no encontrado por id',
+            });
+        }
+
+       
+
+        await Leyes.findByIdAndDelete(id);
+
+
+        res.json({
+            ok: true,
+            
+            msg: 'ley borrada'
+        })
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        })
+    }
 }
 
 module.exports = {
