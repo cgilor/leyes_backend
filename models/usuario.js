@@ -18,11 +18,18 @@ const UsuarioSchema = Schema ({
         require: true
 
     },
+    img: {
+        type: String,
+       
+
+    },
     role: {
         type: String,
         require: true,
         default: 'USER_ROLE'
     }
 });
+
+
 
 module.exports = model('Usuario', UsuarioSchema);
