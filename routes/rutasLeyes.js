@@ -18,7 +18,7 @@ router.get('/' ,getLeyes);
 router.post('/', 
 [
     validarToken,
-    check('nombre','El nombre del hospital es necesario').not().isEmpty(),
+    check('nombre','El nombre del leyes es necesario').not().isEmpty(),
     validarCampos
 ], 
 crearLeyes
@@ -27,7 +27,7 @@ crearLeyes
 router.put('/:id', 
 [
     validarToken,
-    check('nombre','El nombre del hospital es necesario').not().isEmpty(),
+    check('nombre','El nombre del leyes es necesario').not().isEmpty(),
     validarCampos
 
 ], 

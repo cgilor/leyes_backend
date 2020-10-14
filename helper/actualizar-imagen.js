@@ -17,7 +17,7 @@ const actualizarImagen = async(tipo, id, nombreArchivo) => {
     let pathViejo = '';
     
     switch( tipo ) {
-        case 'medicos':
+        case 'articulos':
             const articulos = await Articulo.findById(id);
             if ( !articulos ) {
                 console.log('No es un médico por id');
@@ -27,24 +27,24 @@ const actualizarImagen = async(tipo, id, nombreArchivo) => {
             pathViejo = `./uploads/articulos/${ articulos.img }`;
             borrarImagen( pathViejo );
 
-            medico.img = nombreArchivo;
-            await medico.save();
+            articulos.img = nombreArchivo;
+            await articulos.save();
             return true;
 
         break;
         
-        case 'hospitales':
+        case 'leyes':
             const leyes = await Leyes.findById(id);
             if ( !leyes ) {
-                console.log('No es un hospital por id');
+                console.log('No es un leyes por id');
                 return false;
             }
 
             pathViejo = `./uploads/leyes/${ leyes.img }`;
             borrarImagen( pathViejo );
 
-            hospital.img = nombreArchivo;
-            await hospital.save();
+            leyes.img = nombreArchivo;
+            await leyes.save();
             return true;
 
         break;

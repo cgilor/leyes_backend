@@ -4,12 +4,39 @@ const Articulo  = require('../models/articulos')
 const getArt = async(req, res = response) => {
 
     const articulo = await Articulo.find()
-                            .populate('usuario', 'nombre')
-                            .populate('leyes', 'nombre')
+                            .populate('usuario', 'nombre img')
+                            .populate('ley', 'nombre img')
+            
         res.json({
             ok: true,
             articulo
         })
+}
+
+const getArtById = async(req, res = response) => {
+    const id  = req.params.id;
+
+    try {
+
+        const articulos = await Articulo.findOneAndUpdate(id)
+                            .populate('usuario', 'nombre img')
+                            .populate('leyes', 'nombre img')
+            
+        res.json({
+            ok: true,
+            articulos
+        })
+        
+    } catch (error) {
+        console.log(error);
+        res.json({
+            ok: true,
+            msg:'hable con el admin'
+        })
+        
+        
+    }
+    
 }
 const crearArt = async (req, res = response) => {
     
@@ -18,8 +45,8 @@ const crearArt = async (req, res = response) => {
         usuario: uid,
         ...req.body});
     
-
-    console.log(uid);
+        console.log(articulo);
+    
     
 try {
 
@@ -51,7 +78,7 @@ const actualizarArt = async(req, res = response) => {
         if ( !articulo ) {
             return res.status(404).json({
                 ok: true,
-                msg: 'articulo no encontrado por id',
+                msg: 'leyes no encontrado por id',
             });
         }
 
@@ -60,12 +87,12 @@ const actualizarArt = async(req, res = response) => {
             usuario: uid
         }
 
-        const articuloActualizado = await Leyes.findOneAndUpdate( id, cambiosArticulo, { new: true } );
+        const articuloActualizado = await Articulo.findOneAndUpdate( id, cambiosArticulo, { new: true } );
 
 
         res.json({
             ok: true,
-            articulo: cambiosArticulo
+            articulo: articuloActualizado
         })
 
     } catch (error) {
@@ -77,6 +104,7 @@ const actualizarArt = async(req, res = response) => {
             msg: 'Hable con el administrador'
         })
     }
+
 }
 const borrarArt = async(req, res = response) => {
     const id  = req.params.id;
@@ -119,5 +147,6 @@ module.exports = {
     getArt,
     crearArt,
     actualizarArt,
-    borrarArt
+    borrarArt,
+    getArtById
 }

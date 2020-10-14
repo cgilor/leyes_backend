@@ -6,13 +6,15 @@ const { validarCampos } = require('../middleware/validar.campos');
 const { getArt,
     crearArt,
     actualizarArt,
-    borrarArt } = require('../controllers/controllers.articulos');
+    borrarArt,
+    getArtById } = require('../controllers/controllers.articulos');
 const {validarToken} = require('../middleware/validar.token');
 
 const router = Router();
 
 
 router.get('/' ,getArt);
+
 router.post('/', 
 [
     validarToken,
@@ -37,7 +39,12 @@ actualizarArt
 
 router.delete('/:id',
     validarToken,
-borrarArt
+    borrarArt
+);
+
+router.get('/:id',
+    validarToken,
+    getArtById
 );
 
 module.exports = router;
