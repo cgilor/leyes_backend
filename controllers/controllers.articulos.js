@@ -18,9 +18,10 @@ const getArtById = async(req, res = response) => {
 
     try {
 
-        const articulos = await Articulo.findOneAndUpdate(id)
+        const articulos = await Articulo.findById(id)
                             .populate('usuario', 'nombre img')
                             .populate('leyes', 'nombre img')
+
             
         res.json({
             ok: true,
@@ -84,10 +85,11 @@ const actualizarArt = async(req, res = response) => {
 
         const cambiosArticulo = {
             ...req.body,
-            usuario: uid
+            usuario: uid,
+            
         }
 
-        const articuloActualizado = await Articulo.findOneAndUpdate( id, cambiosArticulo, { new: true } );
+        const articuloActualizado = await Articulo.findByIdAndUpdate( id, cambiosArticulo, { new: true } );
 
 
         res.json({

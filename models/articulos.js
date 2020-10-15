@@ -8,7 +8,7 @@ const ArticuloSchema = Schema ({
 
     },
 
-    texto: {
+    cuerpo: {
         type: String,
     },
     
