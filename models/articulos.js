@@ -11,6 +11,41 @@ const ArticuloSchema = Schema ({
     cuerpo: {
         type: String,
     },
+
+    indiceArt:[
+        {
+            
+            nombreIndice:{
+                type: String,
+            },
+            cuerpoIndice:{
+                type: String,
+            },
+            subIndice:[
+                {
+                    
+                    nombreSubIndice:{
+                        type: String,
+                    },
+                    cuerpoSubIndice:{
+                        type: String,
+                    },
+                    subIndice2:[
+                        {
+                            nomnbreSubIndice2:{
+                                type: String,
+
+                            },
+                            CuerpoSubIndice:{
+                                type: String,
+                            }
+                        }
+                    ]
+                }
+            ]
+
+        }
+    ],
     
     img: {
         type: String,

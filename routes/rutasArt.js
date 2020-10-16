@@ -28,7 +28,7 @@ crearArt
 router.put('/:id', 
 [
     validarToken,
-    check('nombre','El nombre del articulo es necesario').not().isEmpty(),
+    //check('nombre','El nombre del articulo es necesario').not().isEmpty(),
     check('leyes','la id debe de ser válido').isMongoId(),
     validarCampos
 

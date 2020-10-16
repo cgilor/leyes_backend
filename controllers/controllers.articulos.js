@@ -42,6 +42,7 @@ const getArtById = async(req, res = response) => {
 const crearArt = async (req, res = response) => {
     
     const uid = req.uid;
+    console.log(uid);
     const articulo = new Articulo({
         usuario: uid,
         ...req.body});
