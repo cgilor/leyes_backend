@@ -14,31 +14,29 @@ const ArticuloSchema = Schema ({
 
     indiceArt:[
         {
-            
             nombreIndice:{
-                type: String,
-            },
-            cuerpoIndice:{
-                type: String,
-            },
-            subIndice:[
+            type: String,
+                },
+            
+                cuerpoIndice:{
+            type: String,
+                },
+                SubIndice:[
                 {
-                    
                     nombreSubIndice:{
                         type: String,
-                    },
-                    cuerpoSubIndice:{
+                               },
+                               cuerpoSubIndice:{
                         type: String,
-                    },
+                               },
                     subIndice2:[
                         {
-                            nomnbreSubIndice2:{
+                            nombreSubI2:{
                                 type: String,
-
-                            },
-                            CuerpoSubIndice:{
+                                        },
+                            cuerpoSubI2:{
                                 type: String,
-                            }
+                                        }
                         }
                     ]
                 }
