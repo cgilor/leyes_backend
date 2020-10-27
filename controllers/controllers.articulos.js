@@ -4,8 +4,9 @@ const Articulo  = require('../models/articulos')
 const getArt = async(req, res = response) => {
 
     const articulo = await Articulo.find()
+                            .populate('leyes', 'nombre img')
                             .populate('usuario', 'nombre img')
-                            .populate('ley', 'nombre img')
+                            
             
         res.json({
             ok: true,
