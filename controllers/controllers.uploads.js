@@ -1,12 +1,16 @@
 const path = require('path');
 const fs = require('fs');
-
 const { response } = require('express');
 const { v4: uuidv4 } = require('uuid');
 const { actualizarImagen } = require('../helper/actualizar-imagen');
+const cloudinary = require('cloudinary');
+cloudinary.config({
+    cloud_name: process.env.C_CLOUD_NAME,
+    api_key: process.env.C_API_KEY,
+    api_secret: process.env.C_API_SECRET 
+});
 
-
-const fileUpload = ( req, res = response ) => {
+const fileUpload = async ( req, res = response ) => {
 
     const tipo = req.params.tipo;
     const id   = req.params.id;
@@ -48,7 +52,7 @@ const fileUpload = ( req, res = response ) => {
 
     // Path para guardar la imagen
     const path = `./uploads/${ tipo }/${ nombreArchivo }`;
-
+    
     // Mover la imagen
     file.mv( path , (err) => {
         if (err){
@@ -58,9 +62,9 @@ const fileUpload = ( req, res = response ) => {
                 msg: 'Error al mover la imagen'
             });
         }
-
+          
         // Actualizar base de datos
-        actualizarImagen( tipo, id, nombreArchivo );
+       // actualizarImagen( tipo, id, nombreArchivo );
 
         res.json({
             ok: true,
@@ -68,6 +72,12 @@ const fileUpload = ( req, res = response ) => {
             nombreArchivo
         });
     });
+    const result = await cloudinary.v2.uploader.upload(path);
+
+    const url = result.url;
+    actualizarImagen( tipo, id, url ),                    
+    console.log(url);
+    
 
 }
 

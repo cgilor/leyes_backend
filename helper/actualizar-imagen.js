@@ -4,6 +4,7 @@ const fs = require('fs');
 const Articulo = require('../models/articulos');
 const Leyes = require('../models/leyes');
 
+
 const borrarImagen = ( path ) => {
     if ( fs.existsSync( path ) ) {
         // borrar la imagen anterior
@@ -12,7 +13,7 @@ const borrarImagen = ( path ) => {
 }
 
 
-const actualizarImagen = async(tipo, id, nombreArchivo) => {
+const actualizarImagen = async(tipo, id, url) => {
 
     let pathViejo = '';
     
@@ -27,7 +28,7 @@ const actualizarImagen = async(tipo, id, nombreArchivo) => {
             pathViejo = `./uploads/articulos/${ articulos.img }`;
             borrarImagen( pathViejo );
 
-            articulos.img = nombreArchivo;
+            articulos.img = url;
             await articulos.save();
             return true;
 
@@ -43,7 +44,7 @@ const actualizarImagen = async(tipo, id, nombreArchivo) => {
             pathViejo = `./uploads/leyes/${ leyes.img }`;
             borrarImagen( pathViejo );
 
-            leyes.img = nombreArchivo;
+            leyes.img = url;
             await leyes.save();
             return true;
 
@@ -60,7 +61,7 @@ const actualizarImagen = async(tipo, id, nombreArchivo) => {
             pathViejo = `./uploads/usuarios/${ usuario.img }`;
             borrarImagen( pathViejo );
 
-            usuario.img = nombreArchivo;
+            usuario.img = url;
             await usuario.save();
             return true;
 
