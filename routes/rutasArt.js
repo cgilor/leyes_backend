@@ -7,7 +7,8 @@ const { getArt,
     crearArt,
     actualizarArt,
     borrarArt,
-    getArtById } = require('../controllers/controllers.articulos');
+    getArtById,
+     } = require('../controllers/controllers.articulos');
 const {validarToken} = require('../middleware/validar.token');
 
 const router = Router();
@@ -46,5 +47,7 @@ router.get('/:id',
     validarToken,
     getArtById
 );
+
+
 
 module.exports = router;

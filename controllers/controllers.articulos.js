@@ -1,5 +1,6 @@
 const { response } = require('express');
-const Articulo  = require('../models/articulos')
+const Articulo  = require('../models/articulos');
+
 
 const getArt = async(req, res = response) => {
 
@@ -13,6 +14,8 @@ const getArt = async(req, res = response) => {
             articulo
         })
 }
+
+
 
 const getArtById = async(req, res = response) => {
     const id  = req.params.id;
@@ -152,5 +155,6 @@ module.exports = {
     crearArt,
     actualizarArt,
     borrarArt,
-    getArtById
+    getArtById,
+  
 }

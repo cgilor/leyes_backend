@@ -1,15 +1,31 @@
 const { response, json } = require('express');
 
 const  Leyes = require('../models/leyes');
+const Articulo  = require('../models/articulos');
 
 const getLeyes = async (req, res = response) => {
 
-    const leyes = await Leyes.find().populate('usuario','nombre img')
+    const leyes = await Leyes.find()
         res.json({
             ok: true,
             leyes
         })
 }
+
+const getArtByLeyId = async (req, res = response) => {
+
+    const leyesId = req.params.id;
+
+    const articulos = await Articulo.find({leyes: leyesId })
+        res.json({
+            ok: true,
+            articulos
+        })
+
+        console.log(leyesId);
+}
+
+
 const crearLeyes = async(req, res = response) => {
 
     const uid = req.uid;
@@ -118,6 +134,7 @@ const borrarLeyes = async(req, res = response) => {
 
 module.exports = {
     getLeyes,
+    getArtByLeyId,
     crearLeyes,
     actualizarLeyes,
     borrarLeyes
